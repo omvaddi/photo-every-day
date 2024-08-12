@@ -1,9 +1,8 @@
-import math
-
 import cv2
 import os
 import numpy as np
 import dlib
+import math
 
 
 # creates video
@@ -41,25 +40,19 @@ def create_video():
         print("No photos available")
         return
 
-
     # Adjust photo resolution for easier processing
     photo = cv2.imread(photo_paths[0])
     win_width = photo.shape[1]
     win_height = photo.shape[0]
-
-    if win_width or win_height > 1500
+    if win_width or win_height > 1500:
         gcd = math.gcd(win_width, win_height)
-
         win_width /= gcd
         win_height /= gcd
-
         while win_width < 1000 and win_height < 1000:
             win_width *= 2
             win_height *= 2
-
         win_width = int(win_width)
         win_height = int(win_height)
-
 
     # initialize video writer
     out = cv2.VideoWriter(video_path, fourcc, frame_rate, (win_width, win_height))
@@ -82,7 +75,6 @@ def resize_image(image, landmarks, win_width, win_height):
     right_eye_center_x = (landmarks.part(43).x + landmarks.part(46).x) / 2
 
     image_eye_dist = right_eye_center_x - left_eye_center_x
-
     desired_eye_dist = win_width/10
 
     resize_factor = desired_eye_dist/image_eye_dist
@@ -99,7 +91,6 @@ def rotate_image(image, landmarks):
 
     left_eye_x = (landmarks.part(37).x + landmarks.part(40).x) / 2
     right_eye_x = (landmarks.part(43).x + landmarks.part(46).x) / 2
-
     left_eye_y = (landmarks.part(37).y + landmarks.part(40).y) / 2
     right_eye_y = (landmarks.part(43).y + landmarks.part(46).y) / 2
 
@@ -147,45 +138,32 @@ def process_image(image, win_width, win_height):
     detector = dlib.get_frontal_face_detector()
     predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 
-
     # resize image
     gray_og = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     faces = detector(gray_og, 0)
-
     if len(faces) == 0:
         print("no faces found (original)")
         return
-
     landmarks = predictor(gray_og, faces[0])
-
     resized_image = resize_image(image, landmarks, win_width, win_height)
-
 
     # rotate image
     gray_resized = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
     faces = detector(gray_resized, 0)
-
     if len(faces) == 0:
         print("no faces found (resized)")
         return
-
     landmarks = predictor(gray_resized, faces[0])
-
     rotated_image = rotate_image(resized_image, landmarks)
-
 
     # translate image
     gray_rotated = cv2.cvtColor(rotated_image, cv2.COLOR_BGR2GRAY)
-    faces = detector(gray_translated, 0)
-
+    faces = detector(gray_rotated, 0)
     if len(faces) == 0:
         print("no faces found (rotated)")
         return
-
     landmarks = predictor(gray_rotated, faces[0])
-
     translated_image = translate_image(rotated_image, landmarks, win_width, win_height)
-
 
     # crop image to desired dimensions
     final_image = translated_image[0:win_height, 0:win_width]
