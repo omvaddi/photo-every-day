@@ -17,8 +17,10 @@ This project automatically creates a timelapse video from daily pictures. Images
 * Press run and the video will be created in the same folder
 
 ## Troubleshooting
-* In some cases faces may not be recognized. The best way to resolve this is to take the picture in better lighting.
-* If there are multiple people in your picture the first face that is identified will be centered which may not always be yours. Try making you face the biggest and closest to the center.
+1. Face not detected in an image
+   **Solutions**: Make sure there is good lighting and the face is clear. Use higher quality images
+2. Wrong face detected when multiple people in an image
+   **Solution**: Make sure desired face is the largest and most centered 
 
 ## Customization
 * You can change the frame rate to make the video slower or faster (second section of create_video())
