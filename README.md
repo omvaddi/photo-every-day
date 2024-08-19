@@ -16,8 +16,11 @@ This project automatically creates a timelapse video from daily pictures. Images
 * Add the picture to the photo_every_day folder
 * Press run and the video will be created in the same folder
 
-## Troubleshooting/Known Problems
+## Troubleshooting
 * In some cases faces may not be recognized. The best way to resolve this is to take the picture in better lighting.
-* If there are multiple people in your picture the first face that is identified will be centered. 
+* If there are multiple people in your picture the first face that is identified will be centered which may not always be yours. Try making you face the biggest and closest to the center.
+
+## Customization
+* You can change the frame rate to make the video slower or faster (second section of create_video())
 
 
