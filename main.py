@@ -1,7 +1,7 @@
 import cv2
-import os
 import numpy as np
 import dlib
+import os
 import math
 
 
@@ -14,7 +14,9 @@ def create_video():
     photos_dir = os.path.join(documents_dir, "photo_every_day")
     video_path = os.path.join(photos_dir, "video.mp4")
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    frame_rate = 24
+
+    # sets frame rate
+    frame_rate = 8
 
     # list all files in directory
     files = os.listdir(photos_dir)
