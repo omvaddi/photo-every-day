@@ -30,12 +30,18 @@ def create_video():
 
     photo_paths = []
 
-    # add photo paths
+    # add photo paths after making sure they are named as numbers
     for file in jpg_files:
-        photo_paths.append(os.path.join(photos_dir, file))
+        name = os.path.splitext(file)[0]
+        try:
+            int(name)
+            photo_paths.append(os.path.join(photos_dir, file))
+        except ValueError:
+            print("Invalid file name. Skipping", file)
 
-    # sort photo paths
-    photo_paths.sort()
+
+    # sort photo paths by numbers
+    photo_paths.sort(key=lambda x: int(os.path.splitext(os.path.basename(x))[0]))
 
     # check for photos
     if not photo_paths:
