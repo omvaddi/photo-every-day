@@ -1,4 +1,4 @@
-# automatic-daily-photo-editor
+# photo-every-day
 This project automatically creates a timelapse video from daily pictures. Images are processed and aligned using face detection and facial landarking in order to ensure consistent framing.
 
 ## Requirements (+my versions)
